@@ -13,8 +13,6 @@ public class DrawView extends View {
     public DrawView(Context context, float x, float y) {
         super(context);
         p0 = new PathPoint(x, y);
-//        p0.x = x;
-//        p0.y = y;
     }
 
     @Override

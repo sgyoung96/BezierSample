@@ -31,24 +31,12 @@ public class MainActivity extends AppCompatActivity {
         super.dispatchTouchEvent(ev);
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN: {
-                // 화면 사이즈
-//                Display display = ((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
-//                mWidth = display.getWidth();
-//                mHeight = display.getHeight();
-
                 userTouchX = ev.getX();
                 userTouchY = ev.getY();
-//                userTouchX = getPosition(ev.getX(), mWidth);
-//                userTouchY = getPosition(ev.getY(), mHeight);
                 binding.mainCanvas.addView(new DrawView(this, userTouchX, userTouchY));
             }
         }
 
         return true;
-    }
-
-    private float getPosition(float min, float max) {
-        float pointPosition = (0.01f * (max - min)) + min;
-        return pointPosition;
     }
 }
