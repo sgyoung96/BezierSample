@@ -3,6 +3,7 @@ package com.sgy.bezierv3;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.WindowManager;
@@ -15,9 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     float userTouchX;
     float userTouchY;
-
-    private int mWidth;
-    private int mHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +30,27 @@ public class MainActivity extends AppCompatActivity {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 userTouchX = ev.getX();
-                userTouchY = ev.getY();
+                userTouchY = ev.getY() - (getStatusbarHeight() + getActionBarHeight());
                 binding.mainCanvas.addView(new DrawView(this, userTouchX, userTouchY));
             }
         }
 
         return true;
+    }
+
+    private float getStatusbarHeight() {
+        int resourceId = this.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            return this.getResources().getDimensionPixelOffset(resourceId);
+        } else {
+            return 0;
+        }
+    }
+
+    private float getActionBarHeight() {
+        TypedValue tv = new TypedValue();
+        getTheme().resolveAttribute(R.attr.actionBarSize, tv, true);
+        float actionBarHeight = getResources().getDimensionPixelSize(tv.resourceId);
+        return actionBarHeight;
     }
 }
