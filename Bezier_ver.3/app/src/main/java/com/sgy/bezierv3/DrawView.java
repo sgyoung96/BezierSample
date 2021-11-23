@@ -30,6 +30,7 @@ public class DrawView extends View {
         p0 = new PathPoint(m0_x, m0_y);
         p1 = new PathPoint(m1_x, m1_y);
         p2 = new PathPoint(m2_x, m2_y);
+        initPaint();
     }
 
     public DrawView(Context context, float m0_x, float m0_y, float m1_x, float m1_y, float m2_x, float m2_y, float m3_x, float m3_y) {
@@ -62,53 +63,29 @@ public class DrawView extends View {
      */
     private void drawPoint(Canvas canvas, int lineCount) {
         switch (lineCount) {
-            case Myapplication.DRAW_BEZIER_0: { // 0
+            case Myapplication.DRAW_BEZIER_0: { // 0 : 점
                 canvas.drawPoint((float) p0.x,(float) p0.y, mPaint);
                 break;
             }
             case Myapplication.DRAW_BEZIER_1: { // 1
-                canvas.drawPoint((float) p0.x,(float) p0.y, mPaint);
                 mPaint.setStrokeWidth(15);
                 canvas.drawLine((float) p0.x, (float) p0.y, (float) p1.x, (float) p1.y, mPaint);
                 break;
             }
             case Myapplication.DRAW_BEZIER_2: { // 2
+                mPaint.setStrokeWidth(15);
                 canvas.drawLine((float) p0.x, (float) p0.y, (float) p1.x, (float) p1.y, mPaint);
                 canvas.drawLine((float) p1.x, (float) p1.y, (float) p2.x, (float) p2.y, mPaint);
                 break;
             }
             case Myapplication.DRAW_BEZIER_3: { // 3
+                mPaint.setStrokeWidth(15);
                 canvas.drawLine((float) p0.x, (float) p0.y, (float) p1.x, (float) p1.y, mPaint);
                 canvas.drawLine((float) p1.x, (float) p1.y, (float) p2.x, (float) p2.y, mPaint);
                 canvas.drawLine((float) p2.x, (float) p2.y, (float) p3.x, (float) p3.y, mPaint);
                 break;
             }
             default: break;
-        }
-    }
-
-    /**
-     * 1차원 베지에곡선용 직선생성하기
-     * @param canvas
-     */
-    public void drawLine(Canvas canvas, int lineCount) {
-        mPaint.setStrokeWidth(15);
-        switch (lineCount) {
-            case 1: {
-                canvas.drawLine((float) p0.x, (float) p0.y, (float) p1.x, (float) p1.y, mPaint);
-                break;
-            }
-            case 2: {
-                canvas.drawLine((float) p0.x, (float) p0.y, (float) p1.x, (float) p1.y, mPaint);
-                canvas.drawLine((float) p1.x, (float) p1.y, (float) p2.x, (float) p2.y, mPaint);
-                break;
-            }
-            case 3: {
-                canvas.drawLine((float) p0.x, (float) p0.y, (float) p1.x, (float) p1.y, mPaint);
-                canvas.drawLine((float) p1.x, (float) p1.y, (float) p2.x, (float) p2.y, mPaint);
-                canvas.drawLine((float) p2.x, (float) p2.y, (float) p3.x, (float) p3.y, mPaint);
-                break;
-            }
         }
     }
 }

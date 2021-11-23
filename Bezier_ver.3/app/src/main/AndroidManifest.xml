@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bezierv3">
         <activity
+            android:name=".activity.Bezier3Activity"
+            android:exported="true" />
+        <activity
             android:name=".activity.Bezier2Activity"
             android:exported="true" />
         <activity

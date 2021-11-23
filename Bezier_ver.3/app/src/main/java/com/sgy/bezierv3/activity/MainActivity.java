@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -48,17 +49,16 @@ public class MainActivity extends BaseActivity {
         Myapplication.DRAW_BEZIER = 0;
         canvas = new Canvas();
 
+        binding.fabDrawLine.setEnabled(false);
+        binding.fabDrawBezier.setEnabled(false);
+
         binding.fabDrawLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (userTouchCount < 3) {
-                    return;
-                }
                 Myapplication.DRAW_BEZIER++;
                 binding.subCanvas.addView(new DrawView(getApplicationContext(), userTouchX1, userTouchY1, userTouchX2, userTouchY2));
                 binding.fabDrawLine.setEnabled(false);
-                binding.fabDrawBezier.setEnabled(false);
-                binding.mainCanvas.setEnabled(false);
+                binding.fabDrawBezier.setEnabled(true);
             }
         });
 
@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity {
                 Intent goBezier2 = new Intent(getApplicationContext(), Bezier2Activity.class);
                 goBezier2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(goBezier2);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
             }
         });
@@ -77,31 +77,29 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         super.dispatchTouchEvent(ev);
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN: {
-                userTouchCount++;
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            userTouchCount++;
 
-                binding.fabDrawBezier.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                    }
-                });
+            if (userTouchCount >= 2) {
+                binding.fabDrawLine.setEnabled(true);
+                binding.fabDrawBezier.setEnabled(true);
+            }
 
-                switch (userTouchCount) {
-                    case 1: {
-                        userTouchX1 = ev.getX();
-                        userTouchY1 = ev.getY() - (getStatusbarHeight() + getActionBarHeight());
-                        binding.subCanvas.addView(new DrawView(this, userTouchX1, userTouchY1));
-                        break;
-                    }
-                    case 2: {
-                        userTouchX2 = ev.getX();
-                        userTouchY2 = ev.getY() - (getStatusbarHeight() + getActionBarHeight());
-                        binding.subCanvas.addView(new DrawView(this, userTouchX2, userTouchY2));
-                        break;
-                    }
-                    default: break;
+            switch (userTouchCount) {
+                case 1: {
+                    userTouchX1 = ev.getX();
+                    userTouchY1 = ev.getY() - (getStatusbarHeight() + getActionBarHeight());
+                    binding.subCanvas.addView(new DrawView(this, userTouchX1, userTouchY1));
+                    break;
                 }
+                case 2: {
+                    userTouchX2 = ev.getX();
+                    userTouchY2 = ev.getY() - (getStatusbarHeight() + getActionBarHeight());
+                    binding.subCanvas.addView(new DrawView(this, userTouchX2, userTouchY2));
+                    break;
+                }
+                default:
+                    break;
             }
         }
         return true;
