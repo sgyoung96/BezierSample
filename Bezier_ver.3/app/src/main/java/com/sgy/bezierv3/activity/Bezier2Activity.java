@@ -1,23 +1,21 @@
 package com.sgy.bezierv3.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.sgy.bezierv3.DrawView;
+import com.sgy.bezierv3.Bezier.DrawView;
 import com.sgy.bezierv3.Myapplication;
 import com.sgy.bezierv3.databinding.ActivityBezier2Binding;
 
 public class Bezier2Activity extends BaseActivity {
-    final String TAG = Bezier2Activity.class.getName();
+    private final String TAG = Bezier2Activity.class.getName();
 
-    ActivityBezier2Binding binding = null;
+    private ActivityBezier2Binding binding = null;
 
-    Canvas canvas;
+    private Canvas canvas;
 
     float userTouchX1;  // 점
     float userTouchY1;  // 점

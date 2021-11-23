@@ -1,4 +1,4 @@
-package com.sgy.bezierv3;
+package com.sgy.bezierv3.point;
 
 public class PathPoint {
     public double x;

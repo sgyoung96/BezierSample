@@ -1,28 +1,34 @@
-package com.sgy.bezierv3;
+package com.sgy.bezierv3.Bezier;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.View;
 
+import com.sgy.bezierv3.Myapplication;
+import com.sgy.bezierv3.R;
+import com.sgy.bezierv3.point.PathPoint;
+
 public class DrawView extends View {
 
-    Paint mPaint = new Paint();
-    PathPoint p0 = null;
-    PathPoint p1 = null;
-    PathPoint p2 = null;
-    PathPoint p3 = null;
+    private Paint mPaint = new Paint();
+    private Bezier bezier;
+    private PathPoint p0 = null;
+    private PathPoint p1 = null;
+    private PathPoint p2 = null;
+    private PathPoint p3 = null;
 
     public DrawView(Context context, float x, float y) {
         super(context);
         p0 = new PathPoint(x, y);
+        bezier = new Bezier(p0);
     }
 
     public DrawView(Context context, float m0_x, float m0_y, float m1_x, float m1_y) {
         super(context);
         p0 = new PathPoint(m0_x, m0_y);
         p1 = new PathPoint(m1_x, m1_y);
-        initPaint();
+        bezier = new Bezier(p0, p1);
     }
 
     public DrawView(Context context, float m0_x, float m0_y, float m1_x, float m1_y, float m2_x, float m2_y) {
@@ -30,7 +36,7 @@ public class DrawView extends View {
         p0 = new PathPoint(m0_x, m0_y);
         p1 = new PathPoint(m1_x, m1_y);
         p2 = new PathPoint(m2_x, m2_y);
-        initPaint();
+        bezier = new Bezier(p0, p1, p2);
     }
 
     public DrawView(Context context, float m0_x, float m0_y, float m1_x, float m1_y, float m2_x, float m2_y, float m3_x, float m3_y) {
@@ -39,6 +45,7 @@ public class DrawView extends View {
         p1 = new PathPoint(m1_x, m1_y);
         p2 = new PathPoint(m2_x, m2_y);
         p3 = new PathPoint(m3_x, m3_y);
+        bezier = new Bezier(p0, p1, p2, p3);
     }
 
     @Override
@@ -68,21 +75,31 @@ public class DrawView extends View {
                 break;
             }
             case Myapplication.DRAW_BEZIER_LINE_1: { // 1
-                mPaint.setStrokeWidth(15);
+                mPaint.setStrokeWidth(5);
                 canvas.drawLine((float) p0.x, (float) p0.y, (float) p1.x, (float) p1.y, mPaint);
                 break;
             }
             case Myapplication.DRAW_BEZIER_LINE_2: { // 2
-                mPaint.setStrokeWidth(15);
+                mPaint.setStrokeWidth(5);
                 canvas.drawLine((float) p0.x, (float) p0.y, (float) p1.x, (float) p1.y, mPaint);
                 canvas.drawLine((float) p1.x, (float) p1.y, (float) p2.x, (float) p2.y, mPaint);
                 break;
             }
             case Myapplication.DRAW_BEZIER_LINE_3: { // 3
-                mPaint.setStrokeWidth(15);
+                mPaint.setStrokeWidth(5);
                 canvas.drawLine((float) p0.x, (float) p0.y, (float) p1.x, (float) p1.y, mPaint);
                 canvas.drawLine((float) p1.x, (float) p1.y, (float) p2.x, (float) p2.y, mPaint);
                 canvas.drawLine((float) p2.x, (float) p2.y, (float) p3.x, (float) p3.y, mPaint);
+                break;
+            }
+            case Myapplication.DRAW_BEZIER_CURVE_1: {
+
+            }
+            case Myapplication.DRAW_BEZIER_CURVE_3: {
+                mPaint.setColor(getResources().getColor(R.color.red));
+                mPaint.setStrokeWidth(10);
+
+                bezier.drawBezier(canvas, mPaint);
                 break;
             }
             default: break;

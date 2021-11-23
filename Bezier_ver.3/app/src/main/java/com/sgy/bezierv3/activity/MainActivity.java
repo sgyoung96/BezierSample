@@ -1,29 +1,22 @@
 package com.sgy.bezierv3.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
-import com.sgy.bezierv3.DrawView;
+import com.sgy.bezierv3.Bezier.DrawView;
 import com.sgy.bezierv3.Myapplication;
-import com.sgy.bezierv3.R;
 import com.sgy.bezierv3.databinding.ActivityMainBinding;
 
 public class MainActivity extends BaseActivity {
-    String TAG = MainActivity.class.getName();
+    private final String TAG = MainActivity.class.getName();
 
-    ActivityMainBinding binding = null;
+    private ActivityMainBinding binding = null;
 
-    DrawView drawView;
-    Canvas canvas;
+    private DrawView drawView;
+    private Canvas canvas;
 
     float userTouchX1;  // 점
     float userTouchY1;  // 점
@@ -36,8 +29,6 @@ public class MainActivity extends BaseActivity {
 
     float userTouchX4;  // 직선 (3차원 베지에)
     float userTouchY4;  // 직선 (3차원 베지에)
-
-    float[] arrPosition;
 
     int userTouchCount = 0;
 
@@ -59,6 +50,17 @@ public class MainActivity extends BaseActivity {
                 binding.subCanvas.addView(new DrawView(getApplicationContext(), userTouchX1, userTouchY1, userTouchX2, userTouchY2));
                 binding.fabDrawLine.setEnabled(false);
                 binding.fabDrawBezier.setEnabled(true);
+            }
+        });
+
+        binding.fabDrawBezier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Myapplication.DRAW_BEZIER = Myapplication.DRAW_BEZIER_CURVE_1;
+                // setBezier();
+                binding.subCanvas.addView(new DrawView(getApplicationContext(), userTouchX1, userTouchY1, userTouchX2, userTouchY2));
+                binding.fabDrawLine.setEnabled(false);
+                binding.fabDrawBezier.setEnabled(false);
             }
         });
 
