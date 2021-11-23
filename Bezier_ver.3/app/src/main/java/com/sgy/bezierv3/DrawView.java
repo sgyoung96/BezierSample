@@ -63,22 +63,22 @@ public class DrawView extends View {
      */
     private void drawPoint(Canvas canvas, int lineCount) {
         switch (lineCount) {
-            case Myapplication.DRAW_BEZIER_0: { // 0 : 점
+            case Myapplication.DRAW_BEZIER_POINT: { // 0 : 점
                 canvas.drawPoint((float) p0.x,(float) p0.y, mPaint);
                 break;
             }
-            case Myapplication.DRAW_BEZIER_1: { // 1
+            case Myapplication.DRAW_BEZIER_LINE_1: { // 1
                 mPaint.setStrokeWidth(15);
                 canvas.drawLine((float) p0.x, (float) p0.y, (float) p1.x, (float) p1.y, mPaint);
                 break;
             }
-            case Myapplication.DRAW_BEZIER_2: { // 2
+            case Myapplication.DRAW_BEZIER_LINE_2: { // 2
                 mPaint.setStrokeWidth(15);
                 canvas.drawLine((float) p0.x, (float) p0.y, (float) p1.x, (float) p1.y, mPaint);
                 canvas.drawLine((float) p1.x, (float) p1.y, (float) p2.x, (float) p2.y, mPaint);
                 break;
             }
-            case Myapplication.DRAW_BEZIER_3: { // 3
+            case Myapplication.DRAW_BEZIER_LINE_3: { // 3
                 mPaint.setStrokeWidth(15);
                 canvas.drawLine((float) p0.x, (float) p0.y, (float) p1.x, (float) p1.y, mPaint);
                 canvas.drawLine((float) p1.x, (float) p1.y, (float) p2.x, (float) p2.y, mPaint);
