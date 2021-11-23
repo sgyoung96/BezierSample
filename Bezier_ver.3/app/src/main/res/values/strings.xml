@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Bezierv3</string>
+
+    <string name="title1">1차 베지에 곡선</string>
+    <string name="title2">2차 베지에 곡선</string>
+    <string name="title3">3차 베지에 곡선</string>
+
+    <string name="guide1">2차원으로</string>
+    <string name="guide2">3차원으로</string>
+    <string name="guide3">1차원으로</string>
 </resources>
