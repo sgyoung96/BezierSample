@@ -104,7 +104,7 @@ public class Bezier {
      */
     private void drawBezier3(Canvas canvas, Paint mPaint) {
         // 선 간격
-        double muGap = 1.0/16; //DRAW_LINE_COUNT;
+        double muGap = 1.0/1000; //DRAW_LINE_COUNT;
 
         PathPoint startP = new PathPoint();
         PathPoint endP = new PathPoint();
