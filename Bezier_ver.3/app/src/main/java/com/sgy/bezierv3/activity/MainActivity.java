@@ -37,11 +37,15 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Myapplication.context = getApplicationContext();
+
         Myapplication.DRAW_BEZIER = 0;
         canvas = new Canvas();
 
         binding.fabDrawLine.setEnabled(false);
         binding.fabDrawBezier.setEnabled(false);
+        binding.fabDrawAnim.setEnabled(false);
 
         binding.fabDrawLine.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +54,7 @@ public class MainActivity extends BaseActivity {
                 binding.subCanvas.addView(new DrawView(getApplicationContext(), userTouchX1, userTouchY1, userTouchX2, userTouchY2));
                 binding.fabDrawLine.setEnabled(false);
                 binding.fabDrawBezier.setEnabled(true);
+                binding.fabDrawAnim.setEnabled(true);
             }
         });
 
@@ -60,6 +65,7 @@ public class MainActivity extends BaseActivity {
                 // setBezier();
                 binding.subCanvas.addView(new DrawView(getApplicationContext(), userTouchX1, userTouchY1, userTouchX2, userTouchY2));
                 binding.fabDrawLine.setEnabled(false);
+                binding.fabDrawBezier.setEnabled(false);
                 binding.fabDrawBezier.setEnabled(false);
             }
         });
@@ -84,7 +90,8 @@ public class MainActivity extends BaseActivity {
 
             if (userTouchCount >= 2) {
                 binding.fabDrawLine.setEnabled(true);
-                binding.fabDrawBezier.setEnabled(true);
+                binding.fabDrawBezier.setEnabled(false);
+                binding.fabDrawAnim.setEnabled(false);
             }
 
             switch (userTouchCount) {

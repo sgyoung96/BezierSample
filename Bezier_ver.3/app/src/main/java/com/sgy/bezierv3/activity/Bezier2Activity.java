@@ -42,14 +42,16 @@ public class Bezier2Activity extends BaseActivity {
 
         binding.fabDrawLine.setEnabled(false);
         binding.fabDrawBezier.setEnabled(false);
+        binding.fabDrawAnim.setEnabled(false);
 
         binding.fabDrawLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Myapplication.DRAW_BEZIER =+ 2;
+                Myapplication.DRAW_BEZIER = Myapplication.DRAW_BEZIER_LINE_2;
                 binding.subCanvas.addView(new DrawView(getApplicationContext(), userTouchX1, userTouchY1, userTouchX2, userTouchY2, userTouchX3, userTouchY3));
                 binding.fabDrawLine.setEnabled(false);
                 binding.fabDrawBezier.setEnabled(true);
+                binding.fabDrawAnim.setEnabled(true);
             }
         });
 
@@ -75,6 +77,7 @@ public class Bezier2Activity extends BaseActivity {
             if (userTouchCount >= 3) {
                 binding.fabDrawLine.setEnabled(true);
                 binding.fabDrawBezier.setEnabled(true);
+                binding.fabDrawAnim.setEnabled(true);
             }
 
             switch (userTouchCount) {

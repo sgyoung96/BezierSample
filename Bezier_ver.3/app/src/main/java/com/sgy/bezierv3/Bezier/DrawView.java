@@ -3,13 +3,22 @@ package com.sgy.bezierv3.Bezier;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Handler;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.sgy.bezierv3.Myapplication;
 import com.sgy.bezierv3.R;
+import com.sgy.bezierv3.contract.DrawBezierInterface;
 import com.sgy.bezierv3.point.PathPoint;
 
-public class DrawView extends View {
+import java.util.logging.LogRecord;
+
+public class DrawView extends View implements DrawBezierInterface {
+
+    private final String TAG = DrawView.class.getName();
 
     private Paint mPaint = new Paint();
     private Bezier bezier;
@@ -17,6 +26,17 @@ public class DrawView extends View {
     private PathPoint p1 = null;
     private PathPoint p2 = null;
     private PathPoint p3 = null;
+    private PathPoint[] points = new PathPoint[2];
+
+    public DrawView() {
+        super(Myapplication.context);
+    }
+
+    public DrawView(Context context, PathPoint[] points) {
+        super(context);
+        this.points = points;
+        bezier = new Bezier(points);
+    }
 
     public DrawView(Context context, float x, float y) {
         super(context);
@@ -53,7 +73,12 @@ public class DrawView extends View {
         super.onDraw(canvas);
 
         initPaint();
-        drawPoint(canvas, Myapplication.DRAW_BEZIER);
+
+        if (Myapplication.DRAW_BEZIER == Myapplication.DRAW_BEZIER_CURVE_3 || Myapplication.DRAW_BEZIER == Myapplication.DRAW_BEZIER_CURVE_ANIM_3) {
+            bezier.drawBezier();
+        } else {
+            drawPoint(canvas, Myapplication.DRAW_BEZIER);
+        }
     }
 
     private void initPaint() {
@@ -92,17 +117,45 @@ public class DrawView extends View {
                 canvas.drawLine((float) p2.x, (float) p2.y, (float) p3.x, (float) p3.y, mPaint);
                 break;
             }
-            case Myapplication.DRAW_BEZIER_CURVE_1: {
+//            case Myapplication.DRAW_BEZIER_CURVE_3: {
+//                mPaint.setColor(getResources().getColor(R.color.red));
+//                mPaint.setStrokeWidth(10);
+//                bezier.drawBezier();
+//                canvas.drawLine((float) points[0].x, (float) points[0].y, (float) points[1].x, (float) points[1].y, mPaint);
+//                break;
+//            }
+//            case Myapplication.DRAW_BEZIER_CURVE_ANIM_3: {
+//                mPaint.setColor(getResources().getColor(R.color.purple_500));
+//                mPaint.setStrokeWidth(20);
+//
+//                bezier.drawBezier();
+//                break;
+//            }
+            default: break;
+        }
+    }
 
-            }
+    @Override
+    public void drawBezier(PathPoint[] points) {
+        Canvas canvas = new Canvas();
+        switch (Myapplication.DRAW_BEZIER) {
             case Myapplication.DRAW_BEZIER_CURVE_3: {
+                initPaint();
                 mPaint.setColor(getResources().getColor(R.color.red));
                 mPaint.setStrokeWidth(10);
+                // bezier.drawBezier();
+                canvas.drawLine((float) points[0].x, (float) points[0].y, (float) points[1].x, (float) points[1].y, mPaint);
+                break;
+            }
+            case Myapplication.DRAW_BEZIER_CURVE_ANIM_3: {
+                mPaint.setColor(getResources().getColor(R.color.purple_500));
+                mPaint.setStrokeWidth(20);
 
-                bezier.drawBezier(canvas, mPaint);
+                // bezier.drawBezier();
                 break;
             }
             default: break;
         }
+        Toast.makeText(Myapplication.context, "for 문이 끝났어요", Toast.LENGTH_SHORT).show();
     }
 }

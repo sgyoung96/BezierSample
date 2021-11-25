@@ -18,11 +18,20 @@
         app:layout_constraintBottom_toTopOf="@id/fab_drawBezier"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_drawAnim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:src="@drawable/ic_baseline_play_arrow_24"
+        app:layout_constraintBottom_toTopOf="@id/fab_drawBezier"
+        app:layout_constraintEnd_toEndOf="@id/fab_drawBezier" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_drawBezier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
-        android:src="@drawable/ic_baseline_play_arrow_24"
+        android:src="@drawable/ic_baseline_auto_graph_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/fab_drawLine"/>
 

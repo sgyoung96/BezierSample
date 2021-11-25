@@ -10,6 +10,7 @@ import com.sgy.bezierv3.Bezier.Bezier;
 import com.sgy.bezierv3.Bezier.DrawView;
 import com.sgy.bezierv3.Myapplication;
 import com.sgy.bezierv3.databinding.ActivityBezier3Binding;
+import com.sgy.bezierv3.point.PathPoint;
 
 public class Bezier3Activity extends BaseActivity {
     final String TAG = Bezier2Activity.class.getName();
@@ -33,6 +34,8 @@ public class Bezier3Activity extends BaseActivity {
 
     int userTouchCount = 0;
 
+    private PathPoint[] points = new PathPoint[2];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,14 +47,16 @@ public class Bezier3Activity extends BaseActivity {
 
         binding.fabDrawLine.setEnabled(false);
         binding.fabDrawBezier.setEnabled(false);
+        binding.fabDrawAnim.setEnabled(false);
 
         binding.fabDrawLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Myapplication.DRAW_BEZIER =+ 3;
+                Myapplication.DRAW_BEZIER = Myapplication.DRAW_BEZIER_LINE_3;
                 binding.subCanvas.addView(new DrawView(getApplicationContext(), userTouchX1, userTouchY1, userTouchX2, userTouchY2, userTouchX3, userTouchY3, userTouchX4, userTouchY4));
                 binding.fabDrawLine.setEnabled(false);
                 binding.fabDrawBezier.setEnabled(true);
+                binding.fabDrawAnim.setEnabled(true);
             }
         });
 
@@ -59,10 +64,33 @@ public class Bezier3Activity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Myapplication.DRAW_BEZIER = Myapplication.DRAW_BEZIER_CURVE_3;
-                // setBezier();
+                PathPoint[] pathPoints = new PathPoint[]{new PathPoint(userTouchX1, userTouchY1), new PathPoint(userTouchX2, userTouchY2), new PathPoint(userTouchX3, userTouchY3), new PathPoint(userTouchX4, userTouchY4)};
+//                binding.subCanvas.addView(new DrawView(getApplicationContext(), pathPoints));
+                binding.subCanvas.drawBezier();
+                binding.fabDrawLine.setEnabled(false);
+                binding.fabDrawBezier.setEnabled(true);
+                binding.fabDrawAnim.setEnabled(true);
+            }
+        });
+
+        binding.fabDrawAnim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Myapplication.DRAW_BEZIER = Myapplication.DRAW_BEZIER_CURVE_ANIM_3;
+                PathPoint[] pathPoints = new PathPoint[4];
+                pathPoints[0].x = userTouchX1;
+                pathPoints[0].y = userTouchY1;
+                pathPoints[1].x = userTouchX2;
+                pathPoints[1].y = userTouchY2;
+                pathPoints[2].x = userTouchX3;
+                pathPoints[2].y = userTouchY3;
+                pathPoints[3].x = userTouchX4;
+                pathPoints[3].y = userTouchY4;
+
                 binding.subCanvas.addView(new DrawView(getApplicationContext(), userTouchX1, userTouchY1, userTouchX2, userTouchY2, userTouchX3, userTouchY3, userTouchX4, userTouchY4));
                 binding.fabDrawLine.setEnabled(false);
-                binding.fabDrawBezier.setEnabled(false);
+                binding.fabDrawBezier.setEnabled(true);
+                binding.fabDrawAnim.setEnabled(true);
             }
         });
 
@@ -88,6 +116,7 @@ public class Bezier3Activity extends BaseActivity {
             if (userTouchCount >= 4) {
                 binding.fabDrawLine.setEnabled(true);
                 binding.fabDrawBezier.setEnabled(true);
+                binding.fabDrawAnim.setEnabled(true);
             }
 
             switch (userTouchCount) {
